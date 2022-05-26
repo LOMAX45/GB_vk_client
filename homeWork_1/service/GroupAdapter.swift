@@ -38,7 +38,7 @@ final class GroupAdapter {
         AlamofireService.instance.getGroups()
     }
     
-    func getSearchGroup(with search: String, then completion: @escaping ([Group]) -> Void) {
+    func getMySearchGroup(with search: String, then completion: @escaping ([Group]) -> Void) {
         guard let filteredGroups = RealmWorker.instance.getItems(VkGroup.self)?.filter("name contains[c] '\(search)'").sorted(byKeyPath: "name") else { return }
         var groups: [Group] = []
                 for vkGroup in filteredGroups {

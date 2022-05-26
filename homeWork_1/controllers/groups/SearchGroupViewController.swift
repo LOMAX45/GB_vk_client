@@ -14,8 +14,11 @@ class SearchGroupViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var groups = [VkGroup]()
+    private var vkGroups = [VkGroup]()
+    private var groups = [Group]()
     private let groupAdapter = GroupAdapter()
+    private let viewModelFactory = GroupViewModelFactory()
+    private var viewModels: [GroupViewModel] = []
     
     var searchActive = false
     
@@ -54,6 +57,8 @@ extension SearchGroupViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if searchActive {
             searchActive = false
+            viewModels.removeAll()
+            vkGroups.removeAll()
             groups.removeAll()
             tableView.reloadData()
             self.view.endEditing(true)
@@ -68,7 +73,7 @@ extension SearchGroupViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        groups.removeAll()
+        viewModels.removeAll()
         tableView.reloadData()
         if searchText == "" {
             searchActive = false
@@ -82,14 +87,13 @@ extension SearchGroupViewController: UISearchBarDelegate {
 extension SearchGroupViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupCell", for: indexPath) as! MyGroupCell
-        let vkGroup = groups[indexPath.row]
-        let group = groupAdapter.group(from: vkGroup)
-        cell.load(group)
+        let group = viewModels[indexPath.row]
+        cell.configure(with: group)
         return cell
     }
     
@@ -136,7 +140,7 @@ extension SearchGroupViewController {
 extension SearchGroupViewController: VkApiGroupsDelegate {
     
     func returnJoin(_ gid: Int) {
-        for (index, group) in groups.enumerated() {
+        for (index, group) in vkGroups.enumerated() {
             if group.gid == gid {
                 RealmWorker.instance.saveItems(items: [group], needMigrate: false, needUpdate: .modified)
                 FirebaseService.instance.addGroup(group: group)
@@ -151,7 +155,7 @@ extension SearchGroupViewController: VkApiGroupsDelegate {
     }
     
     func returnLeave(_ gid: Int) {
-        for (index, group) in groups.enumerated() {
+        for (index, group) in vkGroups.enumerated() {
             if group.gid == gid {
                 FirebaseService.instance.removeGroup(group: group)
                 RealmWorker.instance.removeItem(group)
@@ -169,7 +173,7 @@ extension SearchGroupViewController: VkApiGroupsDelegate {
             realm.add(group, update: .modified)
             try realm.commitWrite()
             groups.remove(at: index)
-            groups.insert(group, at: index)
+            vkGroups.insert(group, at: index)
             let indexPath = IndexPath(item: index, section: 0)
             tableView.reloadRows(at: [indexPath], with: is_member > 0 ?.right : .left)
         } catch {
@@ -182,8 +186,13 @@ extension SearchGroupViewController: VkApiGroupsDelegate {
     }
     
     func returnGroups(_ groups: [VkGroup]) {
+        self.vkGroups.removeAll()
         self.groups.removeAll()
-        self.groups = groups
+        self.vkGroups = groups
+        for group in groups {
+            self.groups.append(groupAdapter.group(from: group))
+        }
+        self.viewModels = self.viewModelFactory.constractViewModel(from: groups)
         tableView.reloadData()
     }
     

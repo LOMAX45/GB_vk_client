@@ -19,6 +19,9 @@ class GroupsViewController: UIViewController {
     private var notificationTokenGroups: NotificationToken?
     private var notificationTokenSearchGroups: NotificationToken?
     private let groupAdapterService = GroupAdapter()
+    private let viewModelFactory = GroupViewModelFactory()
+    private var viewModels: [GroupViewModel] = []
+    private var viewModelsFiltered: [GroupViewModel] = []
     
     var searchActive = false
     
@@ -77,9 +80,11 @@ extension GroupsViewController: UISearchBarDelegate {
             getMyGroups()
         } else {
             searchActive = true
-            groupAdapterService.getSearchGroup(with: searchText) { [weak self] groups in
-                self?.filteredGroups = groups
-                self?.tableView.reloadData()
+            groupAdapterService.getMySearchGroup(with: searchText) { [weak self] filteredGroups in
+                guard let self = self else { return }
+                self.filteredGroups = filteredGroups
+                self.viewModelsFiltered = self.viewModelFactory.constractViewModel(from: filteredGroups)
+                self.tableView.reloadData()
             }
         }
     }
@@ -88,13 +93,13 @@ extension GroupsViewController: UISearchBarDelegate {
 extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchActive ? filteredGroups.count : groups.count
+        return searchActive ? viewModelsFiltered.count : viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupCell", for: indexPath) as! MyGroupCell
-        let group = searchActive ? filteredGroups[indexPath.row] : groups[indexPath.row]
-        cell.load(group)
+        let group = searchActive ? viewModelsFiltered[indexPath.row] : viewModels[indexPath.row]
+        cell.configure(with: group)
         return cell
     }
     
@@ -131,8 +136,10 @@ extension GroupsViewController {
     
     private func getMyGroups() {
         groupAdapterService.getGroups { [weak self] groups in
-            self?.groups = groups
-            self?.tableView.reloadData()
+            guard let self = self else { return }
+            self.groups = groups
+            self.viewModels = self.viewModelFactory.constractViewModel(from: groups)
+            self.tableView.reloadData()
         }
     }
 
