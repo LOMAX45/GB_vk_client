@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -60,6 +60,8 @@
 		AA5766FA2160EFE50029F786 /* NewsTableViewCellOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5766F92160EFE50029F786 /* NewsTableViewCellOld.swift */; };
 		AA5766FD2160F0C10029F786 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5766FC2160F0C10029F786 /* NewsViewController.swift */; };
 		AA5766FF2160F2CD0029F786 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5766FE2160F2CD0029F786 /* New.swift */; };
+		C14C8414283E632700C3ADB1 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C8413283E632700C3ADB1 /* Group.swift */; };
+		C14C8416283E646300C3ADB1 /* GroupAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C8415283E646300C3ADB1 /* GroupAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +120,8 @@
 		AA5766FC2160F0C10029F786 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		AA5766FE2160F2CD0029F786 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		B1F60E259C4E88A48D0AC259 /* Pods-homeWork_1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homeWork_1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-homeWork_1/Pods-homeWork_1.debug.xcconfig"; sourceTree = "<group>"; };
+		C14C8413283E632700C3ADB1 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		C14C8415283E646300C3ADB1 /* GroupAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAdapter.swift; sourceTree = "<group>"; };
 		CE1F4887F01F3E518C13D6ED /* Pods-homeWork_1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homeWork_1.release.xcconfig"; path = "Pods/Target Support Files/Pods-homeWork_1/Pods-homeWork_1.release.xcconfig"; sourceTree = "<group>"; };
 		FB03EE607AE3B19FD932EA7A /* Pods_homeWork_1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_homeWork_1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -232,6 +236,7 @@
 				8442ABAA2192EC0D003DDA6A /* VkResponseParser.swift */,
 				8442ABAF21957D2D003DDA6A /* RealmWorker.swift */,
 				AA3D1EB021B25109000ED1C1 /* FirebaseService.swift */,
+				C14C8415283E646300C3ADB1 /* GroupAdapter.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 		AA5766E42160AD630029F786 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				C14C8412283E630D00C3ADB1 /* adapter */,
 				841C867D2186B8100016CEC8 /* vk */,
 				AA5766E52160AD8C0029F786 /* Friend.swift */,
 				AA5766EF2160D82B0029F786 /* FriendList.swift */,
@@ -402,6 +408,14 @@
 				84D1DEBB21AE624A006FC20E /* NewsInfoViewController.swift */,
 			);
 			path = news;
+			sourceTree = "<group>";
+		};
+		C14C8412283E630D00C3ADB1 /* adapter */ = {
+			isa = PBXGroup;
+			children = (
+				C14C8413283E632700C3ADB1 /* Group.swift */,
+			);
+			path = adapter;
 			sourceTree = "<group>";
 		};
 		DB9A454896C63B692F475996 /* Pods */ = {
@@ -538,9 +552,11 @@
 				84A74D8321EDC12900AE5A76 /* NewsTableViewCell.swift in Sources */,
 				844ACE352186BFC500565895 /* VkFriend.swift in Sources */,
 				8415662F21B7918C00AF9803 /* MainGroupViewController.swift in Sources */,
+				C14C8416283E646300C3ADB1 /* GroupAdapter.swift in Sources */,
 				8442AB9721870B13003DDA6A /* VkPhoto.swift in Sources */,
 				84C1209B2161C6ED0044CBEB /* MyGroupCell.swift in Sources */,
 				AA5766D92160A72F0029F786 /* LoginViewController.swift in Sources */,
+				C14C8414283E632700C3ADB1 /* Group.swift in Sources */,
 				8424E54D217485B400188E61 /* CustomSquareIndicator.swift in Sources */,
 				AA5766FF2160F2CD0029F786 /* New.swift in Sources */,
 				8424E564217EFD2200188E61 /* LoginVkViewController.swift in Sources */,

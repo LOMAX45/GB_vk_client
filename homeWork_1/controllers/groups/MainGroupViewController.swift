@@ -16,19 +16,18 @@ class MainGroupViewController: UIViewController {
     private var currentSegment = 0
     
     private lazy var myGroupsViewController: GroupsViewController = {
-//        let vc = GroupsViewController()
         let vc = storyboard!.instantiateViewController(withIdentifier: "MyGroups")
         self.add(childViewController: vc)
         return vc as! GroupsViewController
     }()
-
+    
     private lazy var searchGroupsViewController: SearchGroupViewController = {
         let vc = storyboard!.instantiateViewController(withIdentifier: "SearchGroups")
         self.add(childViewController: vc)
         return vc as! SearchGroupViewController
     }()
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,16 +49,16 @@ class MainGroupViewController: UIViewController {
     private func setSegmentedControlSettings() {
         segmentedControl.backgroundColor = UIColor.VkColor.main
         segmentedControl.tintColor = .clear
-    
+        
         segmentedControl.setTitleTextAttributes([
             NSAttributedStringKey.font: UIFont.VkFont.fontNormal,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray
-            ], for: .normal)
+        ], for: .normal)
         
         segmentedControl.setTitleTextAttributes([
             NSAttributedStringKey.font: UIFont.VkFont.fontSelect,
             NSAttributedStringKey.foregroundColor: UIColor.VkColor.main
-            ], for: .selected)
+        ], for: .selected)
         
     }
     
@@ -82,10 +81,10 @@ class MainGroupViewController: UIViewController {
     }
     
     
-
     
     
-
+    
+    
 }
 
 //MARK: - Work with ContainerView
@@ -97,16 +96,12 @@ extension MainGroupViewController {
             view.removeFromSuperview()
         }
         
-        childViewController.view.frame = CGRect(x: 0, y: 0, width: containerGroups.frame.width, height: containerGroups.frame.height)//containerGroups.frame
+        childViewController.view.frame = CGRect(x: 0,
+                                                y: 0,
+                                                width: containerGroups.frame.width,
+                                                height: containerGroups.frame.height)
         
-
-        //        childViewController.didMove(toParentViewController: self)
         containerGroups.addSubview(childViewController.view)
-//        NSLayoutConstraint.activate([
-//            childViewController.view.leadingAnchor.constraint(equalTo: containerGroups.leadingAnchor),
-//            childViewController.view.trailingAnchor.constraint(equalTo: containerGroups.trailingAnchor),
-//            childViewController.view.topAnchor.constraint(equalTo: containerGroups.topAnchor),
-//            childViewController.view.bottomAnchor.constraint(equalTo: containerGroups.bottomAnchor)])
         
     }
     

@@ -88,7 +88,7 @@ class VkResponseParser {
                 for response in responses {
                     if (response.dictionary != nil) {
                         let group = VkGroup()
-                        group.gid = response["gid"].intValue
+                        group.gid = response["id"].intValue
                         group.is_admin = response["is_admin"].intValue
                         group.is_closed = response["is_closed"].intValue
                         group.is_member = response["is_member"].intValue
@@ -98,7 +98,6 @@ class VkResponseParser {
                         group.photoMedium = response["photo_medium"].stringValue
                         group.type = response["type"].stringValue
                         groups.append(group)
-                        print(groups)
                     } else {
                         print("is not Json")
                     }
@@ -114,6 +113,7 @@ class VkResponseParser {
         }
         if !isSearched {
             if groups.count > 0 {
+                print(groups)
                 RealmWorker.instance.saveItems(items: groups)//saveGroups(groups)//
             } else {
                 groups = RealmWorker.instance.getMyGroups()//getItems(VkGroup.self)

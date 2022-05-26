@@ -15,10 +15,9 @@ class SearchGroupViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var groups = [VkGroup]()
+    private let groupAdapter = GroupAdapter()
     
     var searchActive = false
-    
-    var selectedRow = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +87,8 @@ extension SearchGroupViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupCell", for: indexPath) as! MyGroupCell
-        let group = groups[indexPath.row]
+        let vkGroup = groups[indexPath.row]
+        let group = groupAdapter.group(from: vkGroup)
         cell.load(group)
         return cell
     }

@@ -17,14 +17,14 @@ class MyGroupCell: UITableViewCell {
     @IBOutlet weak var labelType: UILabel!
     @IBOutlet weak var labelMember: UILabel!
     
-    var group: VkGroup!
+    var group: Group!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
     
-    func load(_ group: VkGroup) {
+    func load(_ group: Group) {
         self.group = group
         
         labelName.text = group.name

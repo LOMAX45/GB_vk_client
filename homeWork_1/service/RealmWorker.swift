@@ -19,12 +19,11 @@ class RealmWorker {
     static var configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     
     
-    func saveItems<Element: Object>(items: [Element], needMigrate: Bool = false, needUpdate: Realm.UpdatePolicy = .modified) -> Realm? {
+    func saveItems<Element: Object>(items: [Element], needMigrate: Bool = true, needUpdate: Realm.UpdatePolicy = .modified) -> Realm? {
         
         do {
             let config = Realm.Configuration(deleteRealmIfMigrationNeeded: needMigrate)
             let realm = try Realm(configuration: config)
-            print(realm.configuration.fileURL)
             try realm.write {
                 realm.add(items, update: needUpdate)
             }
