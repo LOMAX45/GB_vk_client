@@ -17,23 +17,17 @@ class MyGroupCell: UITableViewCell {
     @IBOutlet weak var labelType: UILabel!
     @IBOutlet weak var labelMember: UILabel!
     
-    var group: VkGroup!
+    var group: Group!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    
-    func load(_ group: VkGroup) {
-        self.group = group
-        
-        labelName.text = group.name
-        labelType.text = group.getType()
-        labelMember.text = group.is_member > 0 ? "Вы вступили" : ""
-        
-        if group.photo.count > 0 {
-            imageAva.sd_setImage(with: URL(string: group.photoBig), placeholderImage: UIImage(named: "noPhoto"))
-        }
+    func configure(with viewModel: GroupViewModel) {
+        labelName.text = viewModel.nameText
+        labelType.text = viewModel.typeText
+        labelMember.text = viewModel.memberText
+        imageAva = viewModel.iconImage
     }
 
 }

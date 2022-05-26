@@ -25,7 +25,7 @@ class FriendInfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barTintColor = UIColor.vkColor.main
+        navigationController?.navigationBar.barTintColor = UIColor.VkColor.main
         self.tabBarController?.tabBar.isHidden = true
     }
     

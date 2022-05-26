@@ -52,7 +52,7 @@ class AlamofireService {
         let fullRow = "\(GlobalConstants.vkApi)\(method)"
         let params: Parameters = [
             "access_token": Session.instance.token,
-            "user_id": "2016882",
+//            "user_id": "2016882",
             "fields": "id,nickname,photo_100,status",
             "v": "5.131",
             ]
@@ -69,9 +69,7 @@ class AlamofireService {
         }
     }
     
-    
-    // //Группы
-    func getGroups(delegate: VkApiGroupsDelegate) {
+    func getGroups() {
         let method = "groups.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
         let params: Parameters = [
@@ -84,11 +82,8 @@ class AlamofireService {
         
         AF.request(fullRow, method: .get, parameters: params)
             .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
-                let groups = VkResponseParser.instance
-                    .parseGroups(result: response.result, isSearched: false)
-                DispatchQueue.main.async {
-                    delegate.returnGroups(groups)
-                }
+                print(response)
+                let groups = VkResponseParser.instance.parseGroups(result: response.result, isSearched: false)
         }
     }
     
